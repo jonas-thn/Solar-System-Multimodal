@@ -27,7 +27,7 @@ Die Beziehungen bestehen zwischen den Teilnehmenden und den Himmelskörpern im v
 Das Ziel der Teilnehmenden ist die aktive Erkundung des Sonnensystems, das Auffinden bestimmter Planeten oder Himmelskörper und das Abrufen von Informationen. Kurzfristig sollen Planeten fokussiert und navigiert werden, langfristig soll ein umfassendes Verständnis des virtuellen Sonnensystems entstehen. Die intuitive Steuerung durch Gesten und Sprache unterstützt die Immersion und erleichtert die Ineratkion.<br><br>
 
 **Where:**<br>
-Die Umgebung ist ein virtuelles 3D-Sonnensystem, das Sonne, Planeten, Asteroiden und weitere astronomische Objekte enthält. Die Bedingungen sind auf Desktop-Anwendungen ausgelegt, mit realistischen Skalierungen, Bewegungen, Lichtverhältnissen und noch zusätzliche Easter eggs. Die Umgebung ist aktiv in die Interaktion eingebunden: Himmelskörper können ausgewählt werden, Umlaufbahnen und Rotationen beeinflussen die Bewegungsfreiheit der Teilnehmenden, und die virtuelle Szenerie reagiert auf die multimodale Steuerung.<br><br>
+Die Umgebung ist ein virtuelles 3D-Sonnensystem, das Sonne, Planeten, Asteroiden und weitere astronomische Objekte enthält. Die Bedingungen sind auf Desktop-Anwendungen ausgelegt, mit realistischen Skalierungen, Bewegungen, Lichtverhältnissen und noch zusätzlichen Easter eggs. Die Umgebung ist aktiv in die Interaktion eingebunden: Himmelskörper können ausgewählt werden, Umlaufbahnen und Rotationen beeinflussen die Bewegungsfreiheit der Teilnehmenden, und die virtuelle Szenerie reagiert auf die multimodale Steuerung.<br><br>
 
 ## Storyboarding
 ...
