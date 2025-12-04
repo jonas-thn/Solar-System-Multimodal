@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Mediapipe; // Basis Namespace
+using Mediapipe; 
 using Mediapipe.Unity;
 
 public class HandDataProvider : MonoBehaviour
