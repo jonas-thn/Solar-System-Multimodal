@@ -2,36 +2,47 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public Transform cubeToMove; // Ziehe hier deinen Würfel im Inspector rein!
+    public Transform myObject; // Dein Würfel
 
-    public void UpdateHandData(Vector3 screenPos, bool isFist)
+    // WICHTIG: Signatur geändert! Jetzt string statt bool.
+    public void UpdateHandData(Vector3 screenPos, string gesture)
     {
-        // 1. DEBUGGEN: Wenn du das in der Konsole siehst, funktioniert die Verbindung!
-        // Debug.Log($"Daten empfangen! Pos: {screenPos} | Faust: {isFist}");
-
-        if (cubeToMove == null) return;
-
-        // 2. Umrechnung: screenPos ist 0 bis 1.
-        // Wir müssen das auf die Weltgröße strecken (z.B. x10)
-        // Wir zentrieren es auch (minus 0.5)
+        // 1. Position anwenden (angepasst an deinen Screen)
         float x = (screenPos.x - 0.5f) * 15f;
         float y = (screenPos.y - 0.5f) * 10f;
 
-        // 3. Position anwenden
-        Vector3 zielPosition = new Vector3(x, y, 0);
-        cubeToMove.position = Vector3.Lerp(cubeToMove.position, zielPosition, Time.deltaTime * 10);
+        myObject.position = Vector3.Lerp(myObject.position, new Vector3(x, y, 0), Time.deltaTime * 15);
 
-        // 4. Farbe ändern bei Faust
-        var renderer = cubeToMove.GetComponent<Renderer>();
-        if (isFist)
+        // 2. Gesten auswerten
+        Renderer rend = myObject.GetComponent<Renderer>();
+
+        switch (gesture)
         {
-            renderer.material.color = Color.red; // Faust = Rot
-            cubeToMove.localScale = Vector3.one * 0.5f; // Klein
-        }
-        else
-        {
-            renderer.material.color = Color.green; // Offen = Grün
-            cubeToMove.localScale = Vector3.one * 1.5f; // Groß
+            case "Fist":
+                // Faust -> Rot & Klein
+                rend.material.color = Color.red;
+                myObject.localScale = Vector3.one * 0.5f;
+                Debug.Log("Geste: FAUST");
+                break;
+
+            case "Point":
+                // Zeigen -> Gelb & Normal
+                rend.material.color = Color.yellow;
+                myObject.localScale = Vector3.one * 1.0f;
+                Debug.Log("Geste: POINT");
+                break;
+
+            case "Open":
+                // Offen -> Grün & Groß
+                rend.material.color = Color.green;
+                myObject.localScale = Vector3.one * 1.5f;
+                Debug.Log("Geste: OPEN");
+                break;
+
+            default:
+                // Unbekannt -> Weiß
+                rend.material.color = Color.white;
+                break;
         }
     }
 }

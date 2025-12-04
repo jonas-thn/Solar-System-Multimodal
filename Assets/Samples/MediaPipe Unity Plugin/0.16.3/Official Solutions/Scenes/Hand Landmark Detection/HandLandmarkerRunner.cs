@@ -20,36 +20,31 @@ namespace Mediapipe.Unity.Sample.HandLandmarkDetection
 
         public readonly HandLandmarkDetectionConfig config = new HandLandmarkDetectionConfig();
 
-        // Ein Event, das Position (Vector3) und "Ist es eine Faust?" (bool) sendet
         [System.Serializable]
-        public class HandDataEvent : UnityEvent<Vector3, bool> { }
+        public class HandDataEvent : UnityEvent<Vector3, string> { }
 
         [Header("MEINE GAME EVENTS")]
         public HandDataEvent onHandDataReceived;
 
         private Vector3 _latestPosition;
-        private bool _latestIsFist;
-        private bool _hasNewData = false; // "Ist Post im Briefkasten?"
-        private object _dataLock = new object(); // Damit sich Threads nicht beißen
+        private string _latestGesture = "Unknown";
+        private bool _hasNewData = false; 
+        private object _dataLock = new object();
 
         private void Update()
         {
-            // Gibt es neue Daten vom Hintergrund-Thread?
             if (_hasNewData)
             {
                 Vector3 posToSend;
-                bool fistToSend;
+                string gestureToSend;
 
-                // Daten sicher herausholen
                 lock (_dataLock)
                 {
                     posToSend = _latestPosition;
-                    fistToSend = _latestIsFist;
-                    _hasNewData = false; // Briefkasten geleert
+                    gestureToSend = _latestGesture;
+                    _hasNewData = false;
                 }
-
-                // JETZT feuern wir das Event sicher im Main Thread!
-                onHandDataReceived?.Invoke(posToSend, fistToSend);
+                onHandDataReceived?.Invoke(posToSend, gestureToSend);
             }
         }
 
@@ -185,55 +180,65 @@ namespace Mediapipe.Unity.Sample.HandLandmarkDetection
             }
         }
 
+        private bool IsFingerOpen(Mediapipe.Tasks.Components.Containers.NormalizedLandmark wrist,
+                                  Mediapipe.Tasks.Components.Containers.NormalizedLandmark tip,
+                                  Mediapipe.Tasks.Components.Containers.NormalizedLandmark pip)
+        {
+            float distTip = Vector2.Distance(new Vector2(wrist.x, wrist.y), new Vector2(tip.x, tip.y));
+            float distPip = Vector2.Distance(new Vector2(wrist.x, wrist.y), new Vector2(pip.x, pip.y));
+            return distTip > distPip;
+        }
+
         private void OnHandLandmarkDetectionOutput(HandLandmarkerResult result, Image image, long timestamp)
         {
-            // Das Original-Zeichnen der roten Striche lassen wir bestehen
             _handLandmarkerResultAnnotationController.DrawLater(result);
 
-            // 1. Prüfen: Gibt es überhaupt ein Ergebnis und Hände?
+
             if (result.handLandmarks != null && result.handLandmarks.Count > 0)
             {
-                // result.handLandmarks ist eine Liste von Listen (für mehrere Hände).
-                // Wir nehmen die erste Hand (Index 0).
-                var firstHandLandmarks = result.handLandmarks[0];
+                var hand = result.handLandmarks[0];
 
-                // Sicherheitshalber prüfen, ob Punkte drin sind (es sollten 21 sein)
-                if (firstHandLandmarks.landmarks != null && firstHandLandmarks.landmarks.Count >= 21)
+                if (hand.landmarks != null && hand.landmarks.Count >= 21)
                 {
-                    // --- A) POSITION HOLEN ---
-                    // Index 0 ist das Handgelenk (Wrist)
-                    // WICHTIG: In der Task API sind x, y, z KLEINGESCHRIEBEN!
-                    var wristNode = firstHandLandmarks.landmarks[0];
+                    // 1. POSITION (Index 7 = DIP des Zeigefingers)
+                    var trackNode = hand.landmarks[7];
+                    Vector3 currentPos = new Vector3(trackNode.x, 1f - trackNode.y, 0);
 
-                    // Wir drehen Y um (1 - y), da Unitys Koordinatensystem anders ist als Webcams
-                    Vector3 wristPos = new Vector3(wristNode.x, 1f - wristNode.y, 0);
+                    // 2. GESTEN ERKENNUNG
+                    var wrist = hand.landmarks[0];
 
-                    // --- B) GESTE ERKENNEN (FAUST) ---
-                    // Wir nutzen rohe Mathe direkt hier, um Abhängigkeiten zu vermeiden.
-                    // Punkt 0 = Wrist, Punkt 12 = Mittelfinger Spitze, Punkt 9 = Mittelfinger Knöchel
-                    var tipNode = firstHandLandmarks.landmarks[12];
-                    var knuckleNode = firstHandLandmarks.landmarks[9];
+                    // Wir prüfen 4 Finger (Index, Mittel, Ring, Klein). Daumen lassen wir weg, der ist kompliziert.
+                    // Indizes: Spitze (8,12,16,20) vs PIP-Gelenk (6,10,14,18)
+                    bool indexOpen = IsFingerOpen(wrist, hand.landmarks[8], hand.landmarks[6]);
+                    bool middleOpen = IsFingerOpen(wrist, hand.landmarks[12], hand.landmarks[10]);
+                    bool ringOpen = IsFingerOpen(wrist, hand.landmarks[16], hand.landmarks[14]);
+                    bool pinkyOpen = IsFingerOpen(wrist, hand.landmarks[20], hand.landmarks[18]);
 
-                    // Distanz berechnen (Pythagoras)
-                    float distTip = Vector2.Distance(new Vector2(wristNode.x, wristNode.y), new Vector2(tipNode.x, tipNode.y));
-                    float distKnuckle = Vector2.Distance(new Vector2(wristNode.x, wristNode.y), new Vector2(knuckleNode.x, knuckleNode.y));
+                    string detectedGesture = "Unknown";
 
-                    // Wenn Spitze näher am Gelenk als der Knöchel * 1.5 -> Faust
-                    bool isFist = distTip < (distKnuckle * 1.5f);
-
-                    if (firstHandLandmarks.landmarks != null && firstHandLandmarks.landmarks.Count >= 21)
+                    // LOGIK:
+                    // POINT: Zeigefinger offen, der Rest zu
+                    if (indexOpen && !middleOpen && !ringOpen && !pinkyOpen)
                     {
-                        // ... hier deine Berechnungen für wristPos und isFist ...
-                        // (Ich kopiere nicht alles, nimm deinen Code von eben für die Mathe)
+                        detectedGesture = "Point";
+                    }
+                    // OPEN: Alle offen
+                    else if (indexOpen && middleOpen && ringOpen && pinkyOpen)
+                    {
+                        detectedGesture = "Open";
+                    }
+                    // FIST: Alle zu
+                    else if (!indexOpen && !middleOpen && !ringOpen && !pinkyOpen)
+                    {
+                        detectedGesture = "Fist";
+                    }
 
-                        // --- SICHERES SPEICHERN ---
-                        lock (_dataLock)
-                        {
-                            _latestPosition = wristPos;
-                            _latestIsFist = isFist;
-                            _hasNewData = true; // Flagge hoch: "Neue Daten da!"
-                        }
-                        // --------------------------
+                    // 3. DATEN SPEICHERN
+                    lock (_dataLock)
+                    {
+                        _latestPosition = currentPos;
+                        _latestGesture = detectedGesture;
+                        _hasNewData = true;
                     }
                 }
             }

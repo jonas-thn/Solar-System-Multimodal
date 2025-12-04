@@ -17,20 +17,16 @@ public class HandDataProvider : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    // Wir akzeptieren jetzt direkt die Liste von Landmarks
     public void OnHandDataReceived(List<NormalizedLandmarkList> multiHandLandmarks)
     {
-        // 1. Sicherheit: Ist die Liste da und nicht leer?
         if (multiHandLandmarks == null || multiHandLandmarks.Count == 0)
         {
             isHandDetected = false;
             return;
         }
 
-        // 2. Daten holen
         NormalizedLandmarkList hand = multiHandLandmarks[0];
 
-        // Prüfen ob Landmarks in der Hand sind
         if (hand.Landmark == null || hand.Landmark.Count < 21)
         {
             isHandDetected = false;
@@ -39,7 +35,6 @@ public class HandDataProvider : MonoBehaviour
 
         isHandDetected = true;
 
-        // Position und Faust wie gehabt berechnen
         var rawWrist = hand.Landmark[0];
         wristPosition = new Vector3(rawWrist.X, 1f - rawWrist.Y, 0);
         isFist = CheckIfFist(hand.Landmark);
