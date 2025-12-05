@@ -1,28 +1,42 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class GameController : MonoBehaviour
 {
 
-    [SerializeField] private Transform mainCamera;
-    [SerializeField] private float cameraMoveSpeed = 5f;
-    [SerializeField] private Vector2 xBounds;
-    [SerializeField] private Vector2 yBounds;
-    [SerializeField] private Vector2 zBounds;
+    [SerializeField] private CinemachineCamera mainCamera;
+
+    [SerializeField] private float cameraZoomSpeed = 5.0f;
+    [SerializeField] private float cameraRotationSpeed = 5.0f;
+
+    [SerializeField] private Vector2 zoomBounds;
+
+    CinemachineOrbitalFollow followCam;
+
+    private void Awake()
+    {
+        followCam = mainCamera.GetComponent<CinemachineOrbitalFollow>();
+    }
 
     public void UpdateHandData(Vector3 screenPos, string gesture)
     {
         float x = (screenPos.x - 0.5f) * 15f;
         float y = (screenPos.y - 0.5f) * 10f;
 
-        UpdateCamera(x, y);
+           
+        followCam.HorizontalAxis.Value += x * cameraRotationSpeed * Time.deltaTime;
 
         switch (gesture)
         {
             case "Fist":
+                followCam.Radius -= cameraZoomSpeed * Time.deltaTime;
+                followCam.Radius = Mathf.Clamp(followCam.Radius, zoomBounds.x, zoomBounds.y);
                 break;
 
             case "Point":
+                followCam.Radius += cameraZoomSpeed * Time.deltaTime;
+                followCam.Radius = Mathf.Clamp(followCam.Radius, zoomBounds.x, zoomBounds.y);
                 break;
 
             case "Open":
@@ -31,12 +45,5 @@ public class GameController : MonoBehaviour
             default:
                 break;
         }
-    }
-
-    private void UpdateCamera(float x, float y)
-    {
-        float cameraXPos = Mathf.Clamp(mainCamera.position.x + x * Time.deltaTime * cameraMoveSpeed, xBounds.x, xBounds.y);
-        float cameraYPos = Mathf.Clamp(mainCamera.position.y + y * Time.deltaTime * cameraMoveSpeed, yBounds.x, yBounds.y);
-        mainCamera.position = new Vector3(cameraXPos, cameraYPos, mainCamera.position.z);
     }
 }
