@@ -1,35 +1,42 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GameController : MonoBehaviour
 {
-    public Transform myObject;
+
+    [SerializeField] private Transform mainCamera;
+    [SerializeField] private float cameraMoveSpeed = 5f;
+    [SerializeField] private Vector2 xBounds;
+    [SerializeField] private Vector2 yBounds;
+    [SerializeField] private Vector2 zBounds;
 
     public void UpdateHandData(Vector3 screenPos, string gesture)
     {
         float x = (screenPos.x - 0.5f) * 15f;
         float y = (screenPos.y - 0.5f) * 10f;
 
-        myObject.position = Vector3.Lerp(myObject.position, new Vector3(x, y, 0), Time.deltaTime * 15);
-
-        Renderer rend = myObject.GetComponent<Renderer>();
+        UpdateCamera(x, y);
 
         switch (gesture)
         {
             case "Fist":
-                myObject.localScale = Vector3.one * 1.0f;
                 break;
 
             case "Point":
-                myObject.localScale = Vector3.one * 2.0f;
                 break;
 
             case "Open":
-                myObject.localScale = Vector3.one * 0.5f;
                 break;
 
             default:
-                rend.material.color = Color.white;
                 break;
         }
+    }
+
+    private void UpdateCamera(float x, float y)
+    {
+        float cameraXPos = Mathf.Clamp(mainCamera.position.x + x * Time.deltaTime * cameraMoveSpeed, xBounds.x, xBounds.y);
+        float cameraYPos = Mathf.Clamp(mainCamera.position.y + y * Time.deltaTime * cameraMoveSpeed, yBounds.x, yBounds.y);
+        mainCamera.position = new Vector3(cameraXPos, cameraYPos, mainCamera.position.z);
     }
 }
