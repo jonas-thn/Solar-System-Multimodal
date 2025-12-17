@@ -35,7 +35,9 @@ public class VoiceRecognition : MonoBehaviour
 
     void Start()
     {
+        keywords.Add("Zeig mir die Sonne", OnSonne);
         keywords.Add("Sonne", OnSonne);
+        keywords.Add("Zeig mir den Merkur", OnMerkur);
         keywords.Add("Merkur", OnMerkur);
         keywords.Add("Venus", OnVenus);
         keywords.Add("Erde", OnErde);
