@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private float cameraZoomSpeed = 5.0f;
     [SerializeField] private float cameraRotationSpeed = 5.0f;
 
-    [SerializeField] private Vector2 zoomBounds;
+    [SerializeField] private Vector2 zoomBounds; //11, 150
 
     CinemachineOrbitalFollow followCam;
 
@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
         float y = (screenPos.y - 0.5f) * 10f;
 
            
-        followCam.HorizontalAxis.Value += x * cameraRotationSpeed * Time.deltaTime;
+        followCam.HorizontalAxis.Value += (x * cameraRotationSpeed * Time.deltaTime);
 
         switch (gesture)
         {
@@ -44,6 +44,16 @@ public class GameController : MonoBehaviour
 
             default:
                 break;
+        }
+    }
+
+    public void ChangeCameraProperties(float lowerBound)
+    {
+        zoomBounds = new Vector2(lowerBound, zoomBounds.y);
+
+        if(followCam.Radius < lowerBound)
+        {
+            followCam.Radius = lowerBound;
         }
     }
 }

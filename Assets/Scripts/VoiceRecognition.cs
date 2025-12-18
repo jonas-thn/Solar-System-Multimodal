@@ -7,6 +7,8 @@ using UnityEngine.Windows.Speech;
 
 public class VoiceRecognition : MonoBehaviour
 {
+    [SerializeField] private GameController gameController;
+
     [SerializeField] private Transform sonneTarget;
     [SerializeField] private Transform merkurTarget;
     [SerializeField] private Transform venusTarget;
@@ -46,8 +48,6 @@ public class VoiceRecognition : MonoBehaviour
         keywords.Add("Saturn", OnSaturn);
         keywords.Add("Uranus", OnUranus);
         keywords.Add("Neptun", OnNeptun);
-        //keywords.Add("Mond", OnMond);
-        //keywords.Add("System", OnSystem);
 
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
 
@@ -68,64 +68,63 @@ public class VoiceRecognition : MonoBehaviour
     {
         print("Sonne erkannt");
         mainCam.Target.TrackingTarget = sonneTarget;
+        gameController.ChangeCameraProperties(20.0f);
     }
 
     private void OnMerkur()
     {
         print("Merkur erkannt");
         mainCam.Target.TrackingTarget = merkurTarget;
+        gameController.ChangeCameraProperties(6.0f);
     }
 
     private void OnVenus()
     {
         print("Venus erkannt");
         mainCam.Target.TrackingTarget = venusTarget;
+        gameController.ChangeCameraProperties(7.0f);
     }
 
     private void OnErde()
     {
         print("Erde erkannt");
         mainCam.Target.TrackingTarget = erdeTarget;
+        gameController.ChangeCameraProperties(9.0f);
     }
 
     private void OnMars()
     {
         print("Mars erkannt");
         mainCam.Target.TrackingTarget = marsTarget;
+        gameController.ChangeCameraProperties(8.0f);
     }
 
     private void OnJupiter()
     {
         print("Jupiter erkannt");
         mainCam.Target.TrackingTarget = jupiterTarget;
+        gameController.ChangeCameraProperties(10.0f);
     }
 
     private void OnSaturn()
     {
         print("Saturn erkannt");
         mainCam.Target.TrackingTarget = saturnTarget;
+        gameController.ChangeCameraProperties(10.0f);
     }
 
     private void OnUranus()
     {
         print("Uranus erkannt");
         mainCam.Target.TrackingTarget = uranusTarget;
+        gameController.ChangeCameraProperties(9.0f);
     }
 
     private void OnNeptun()
     {
         print("Neptun erkannt");
         mainCam.Target.TrackingTarget = neptunTarget;
-    }
-
-    private void OnMond()
-    {
-        print("Mond erkannt");
-    }
-
-    private void OnSystem()
-    {
-        print("System erkannt");
+        gameController.ChangeCameraProperties(9.0f);
     }
 
     private void OnDestroy()
