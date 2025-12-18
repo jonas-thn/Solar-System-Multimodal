@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Windows.Speech; 
 
 public class VoiceRecognition : MonoBehaviour
 {
+    [Header("Main")]
     [SerializeField] private GameController gameController;
+    [SerializeField] private CinemachineCamera mainCam;
 
+    [Header("Targets")]
     [SerializeField] private Transform sonneTarget;
     [SerializeField] private Transform merkurTarget;
     [SerializeField] private Transform venusTarget;
@@ -19,13 +23,24 @@ public class VoiceRecognition : MonoBehaviour
     [SerializeField] private Transform uranusTarget;
     [SerializeField] private Transform neptunTarget;
 
-    [SerializeField] private CinemachineCamera mainCam;
+    [Header("UI")]
+    [SerializeField] private GameObject sonneUI;
+    [SerializeField] private GameObject mercuryUI;
+    [SerializeField] private GameObject venusUI;
+    [SerializeField] private GameObject earthUI;
+    [SerializeField] private GameObject marsUI;
+    [SerializeField] private GameObject jupiterUI;
+    [SerializeField] private GameObject saturnUI;
+    [SerializeField] private GameObject uranusUI;
+    [SerializeField] private GameObject naptunUI;
 
     public static VoiceRecognition Instance;
 
     private KeywordRecognizer keywordRecognizer;
 
     private Dictionary<string, Action> keywords = new Dictionary<string, Action>();
+
+    private List<GameObject> uiObjects = new List<GameObject>();
 
     void Awake()
     {
@@ -37,17 +52,34 @@ public class VoiceRecognition : MonoBehaviour
 
     void Start()
     {
+        uiObjects.Add(sonneUI);
+        uiObjects.Add(mercuryUI);
+        uiObjects.Add(venusUI);
+        uiObjects.Add(earthUI);
+        uiObjects.Add(marsUI);
+        uiObjects.Add(jupiterUI);
+        uiObjects.Add(saturnUI);
+        uiObjects.Add(uranusUI);
+        uiObjects.Add(naptunUI);
+
         keywords.Add("Zeig mir die Sonne", OnSonne);
         keywords.Add("Sonne", OnSonne);
         keywords.Add("Zeig mir den Merkur", OnMerkur);
         keywords.Add("Merkur", OnMerkur);
         keywords.Add("Venus", OnVenus);
+        keywords.Add("Zeig mir die Venus", OnVenus);
         keywords.Add("Erde", OnErde);
+        keywords.Add("Zeig mir die Erde", OnErde);
         keywords.Add("Mars", OnMars);
+        keywords.Add("Zeig mir den Mars", OnMars);
         keywords.Add("Jupiter", OnJupiter);
+        keywords.Add("Zeig mir den Jupiter", OnJupiter);
         keywords.Add("Saturn", OnSaturn);
+        keywords.Add("Zeig mir den Saturn", OnSaturn);
         keywords.Add("Uranus", OnUranus);
+        keywords.Add("Zeig mir den Uranus", OnUranus);
         keywords.Add("Neptun", OnNeptun);
+        keywords.Add("Zeig mir den Neptun", OnNeptun);
 
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
 
@@ -69,6 +101,13 @@ public class VoiceRecognition : MonoBehaviour
         print("Sonne erkannt");
         mainCam.Target.TrackingTarget = sonneTarget;
         gameController.ChangeCameraProperties(20.0f);
+
+        foreach (var uiObject in uiObjects)
+        {
+            uiObject.SetActive(false);
+        }
+
+        sonneUI.SetActive(true);
     }
 
     private void OnMerkur()
@@ -76,6 +115,13 @@ public class VoiceRecognition : MonoBehaviour
         print("Merkur erkannt");
         mainCam.Target.TrackingTarget = merkurTarget;
         gameController.ChangeCameraProperties(6.0f);
+
+        foreach (var uiObject in uiObjects)
+        {
+            uiObject.SetActive(false);
+        }
+
+        mercuryUI.SetActive(true);
     }
 
     private void OnVenus()
@@ -83,6 +129,13 @@ public class VoiceRecognition : MonoBehaviour
         print("Venus erkannt");
         mainCam.Target.TrackingTarget = venusTarget;
         gameController.ChangeCameraProperties(7.0f);
+
+        foreach (var uiObject in uiObjects)
+        {
+            uiObject.SetActive(false);
+        }
+
+        venusUI.SetActive(true);
     }
 
     private void OnErde()
@@ -90,6 +143,13 @@ public class VoiceRecognition : MonoBehaviour
         print("Erde erkannt");
         mainCam.Target.TrackingTarget = erdeTarget;
         gameController.ChangeCameraProperties(9.0f);
+
+        foreach (var uiObject in uiObjects)
+        {
+            uiObject.SetActive(false);
+        }
+
+        earthUI.SetActive(true);
     }
 
     private void OnMars()
@@ -97,6 +157,13 @@ public class VoiceRecognition : MonoBehaviour
         print("Mars erkannt");
         mainCam.Target.TrackingTarget = marsTarget;
         gameController.ChangeCameraProperties(8.0f);
+
+        foreach (var uiObject in uiObjects)
+        {
+            uiObject.SetActive(false);
+        }
+
+        marsUI.SetActive(true);
     }
 
     private void OnJupiter()
@@ -104,6 +171,13 @@ public class VoiceRecognition : MonoBehaviour
         print("Jupiter erkannt");
         mainCam.Target.TrackingTarget = jupiterTarget;
         gameController.ChangeCameraProperties(10.0f);
+
+        foreach (var uiObject in uiObjects)
+        {
+            uiObject.SetActive(false);
+        }
+
+        jupiterUI.SetActive(true);
     }
 
     private void OnSaturn()
@@ -111,6 +185,13 @@ public class VoiceRecognition : MonoBehaviour
         print("Saturn erkannt");
         mainCam.Target.TrackingTarget = saturnTarget;
         gameController.ChangeCameraProperties(10.0f);
+
+        foreach (var uiObject in uiObjects)
+        {
+            uiObject.SetActive(false);
+        }
+
+        saturnUI.SetActive(true);
     }
 
     private void OnUranus()
@@ -118,6 +199,13 @@ public class VoiceRecognition : MonoBehaviour
         print("Uranus erkannt");
         mainCam.Target.TrackingTarget = uranusTarget;
         gameController.ChangeCameraProperties(9.0f);
+
+        foreach (var uiObject in uiObjects)
+        {
+            uiObject.SetActive(false);
+        }
+
+        uranusUI.SetActive(true);
     }
 
     private void OnNeptun()
@@ -125,6 +213,13 @@ public class VoiceRecognition : MonoBehaviour
         print("Neptun erkannt");
         mainCam.Target.TrackingTarget = neptunTarget;
         gameController.ChangeCameraProperties(9.0f);
+
+        foreach (var uiObject in uiObjects)
+        {
+            uiObject.SetActive(false);
+        }
+
+        naptunUI.SetActive(true);
     }
 
     private void OnDestroy()
