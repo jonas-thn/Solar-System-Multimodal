@@ -1,5 +1,8 @@
 # Solar-System
 
+| platzhalter | platzhalter |
+| --- | --- |
+| platzhalter | platzhalter |
 
 ## Beschreibung
 In diesem Projekt wird ein interaktives 3D-Modell unseres Sonnensystems in C# mithilfe des Frameworks Unity entwickelt. Die Besonderheit liegt in der multimodalen Mensch-Maschine-Interaktion: Nutzer können sich mithilfe von Gestensteuerung und Spracherkennung frei durch das System bewegen, Himmelskörper anwählen und Informationen abrufen. Durch die Kombination beider Eingabemodalitäten entsteht ein intuitives und natürliches Steuerungserlebnis, das die Erkundung des virtuellen Raums deutlich verbessert.
@@ -7,13 +10,13 @@ In diesem Projekt wird ein interaktives 3D-Modell unseres Sonnensystems in C# mi
 ## AMITUDE-Modellierung
 | Buchstabe | Bedeutung | Beschreibung |
 | --- | --- | --- | 
-| A | Application | Eine interaktive 3D-Sonnensystem Anwendung |  
-| M | Modalities | Gestensteuerung für Bewegung, Sprachsteuerung für Planetenauswahl |
-| I | Interaction | Nutzer bewegt sich durch Gesten und wählt Planeten mit Sprachbefehl aus |
-| T | Task | Nutzer können sich frei bewegen und Planeten auswählen |
-| U | User | Benutzer/in |
-| D | Devices | Kamera für Gesten, Mikrofon für Sprache |
-| E | Environment | Desktop-Rechner mit Kamera und Mikrofon |
+| **A** | Application | Eine interaktive 3D-Sonnensystem Anwendung |  
+| **M** | Modalities | Gestensteuerung für Bewegung, Sprachsteuerung für Planetenauswahl |
+| **I** | Interaction | Nutzer bewegt sich durch Gesten und wählt Planeten mit Sprachbefehl aus |
+| **T** | Task | Nutzer können sich frei bewegen und Planeten auswählen |
+| **U** | User | Benutzer/in |
+| **D** | Devices | Kamera für Gesten, Mikrofon für Sprache |
+| **E** | Environment | Desktop-Rechner mit Kamera und Mikrofon |
 
 
 ## CROW-Framework
@@ -30,10 +33,15 @@ Das Ziel der Teilnehmenden ist die aktive Erkundung des Sonnensystems, das Auffi
 Die Umgebung ist ein virtuelles 3D-Sonnensystem, das Sonne, Planeten, Asteroiden und weitere astronomische Objekte enthält. Die Bedingungen sind auf Desktop-Anwendungen ausgelegt, mit realistischen Skalierungen, Bewegungen, Lichtverhältnissen und noch zusätzlichen Easter eggs. Die Umgebung ist aktiv in die Interaktion eingebunden: Himmelskörper können ausgewählt werden, Umlaufbahnen und Rotationen beeinflussen die Bewegungsfreiheit der Teilnehmenden, und die virtuelle Szenerie reagiert auf die multimodale Steuerung.<br><br>
 
 ## Storyboarding
-...
+![Storyboard](Src/storyboard.png)
+Das Storyboard illustriert explizit an einem Beispiel die multimodale Steuerung der Anwendung :
+
+- **Voice Control:** "Zeig mir Pluto" – Das System reagiert auf deutsche Sprachbefehle, um spezifische Himmelskörper anzuzeigen.
+- **Gesture Navigation:** Intuitive Steuerung durch Wischgesten (Swiping), um zwischen Planeten und Ansichten zu wechseln.
+- **Interactive Info-Display:** Detaillierte Informationen und Annotationen zu den gewählten Objekten.
 <br><br>
 
 [Hier](https://bildungsportal.sachsen.de/opal/auth/RepositoryEntry/33154007041/BusinessGroup/51148128297/menu/MENU_SHOW_BLOG)
-klicken für die einzelnen Projekt-Blogs.
+klicken für den Projekt-Blog.
 <br><br>
-Bearbeiter: Jonas Thaun, Alexander Hellebrandt, Lazar Schmidt
+Bearbeiter: Jonas Thaun, Lazar Schmidt, Alexander Hellebrandt
