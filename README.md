@@ -1,8 +1,9 @@
 # Solar-System
-
-| platzhalter | platzhalter |
+[Demo-Video](Src/demo.mp4)
+| | |
 | --- | --- |
-| platzhalter | platzhalter |
+| <img src="Src/zoom1.png" width=300> | <img src="Src/zoom2.png" width=300> |
+
 
 ## Beschreibung
 In diesem Projekt wird ein interaktives 3D-Modell unseres Sonnensystems in C# mithilfe des Frameworks Unity entwickelt. Die Besonderheit liegt in der multimodalen Mensch-Maschine-Interaktion: Nutzer können sich mithilfe von Gestensteuerung und Spracherkennung frei durch das System bewegen, Himmelskörper anwählen und Informationen abrufen. Durch die Kombination beider Eingabemodalitäten entsteht ein intuitives und natürliches Steuerungserlebnis, das die Erkundung des virtuellen Raums deutlich verbessert.
@@ -36,12 +37,11 @@ Die Umgebung ist ein virtuelles 3D-Sonnensystem, das Sonne, Planeten, Asteroiden
 ![Storyboard](Src/storyboard.png)
 Das Storyboard illustriert explizit an einem Beispiel die multimodale Steuerung der Anwendung :
 
-- **Voice Control:** "Zeig mir Pluto" – Das System reagiert auf deutsche Sprachbefehle, um spezifische Himmelskörper anzuzeigen.
-- **Gesture Navigation:** Intuitive Steuerung durch Wischgesten (Swiping), um zwischen Planeten und Ansichten zu wechseln.
-- **Interactive Info-Display:** Detaillierte Informationen und Annotationen zu den gewählten Objekten.
+- **Voice Control:** Das System reagiert auf deutsche Sprachbefehle, um spezifische Himmelskörper anzuzeigen - "Zeig mir Pluto" (auch wenn Pluto kein Planet ist ).
+- **Gesture Navigation:** Intuitive Steuerung durch Wischgesten und Handzeichen, um zwischen Planeten und Ansichten zu wechseln.
 <br><br>
 
-[Hier](https://bildungsportal.sachsen.de/opal/auth/RepositoryEntry/33154007041/BusinessGroup/51148128297/menu/MENU_SHOW_BLOG)
-klicken für den Projekt-Blog.
+Mehr Informationen im [Projekt-Blog](https://bildungsportal.sachsen.de/opal/auth/RepositoryEntry/33154007041/BusinessGroup/51148128297/menu/MENU_SHOW_BLOG).
 <br><br>
+
 Bearbeiter: Jonas Thaun, Lazar Schmidt, Alexander Hellebrandt
