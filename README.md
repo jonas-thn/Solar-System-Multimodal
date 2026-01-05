@@ -2,7 +2,7 @@
 [Demo-Video](Src/demo.mp4)
 | | |
 | --- | --- |
-| <img src="Src/zoom1.png" width=300> | <img src="Src/zoom2.png" width=300> |
+| <img src="Src/zoom1.png" width=500> | <img src="Src/zoom2.png" width=500> |
 
 
 ## Beschreibung
