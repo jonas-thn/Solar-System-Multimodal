@@ -1,6 +1,6 @@
 # Solar-System
 [Demo-Video](Src/demo.mp4)
-| | |
+| Zoom In | Zoom Out |
 | --- | --- |
 | <img src="Src/zoom1.png" width=500> | <img src="Src/zoom2.png" width=500> |
 
