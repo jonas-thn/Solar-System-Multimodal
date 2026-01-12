@@ -44,7 +44,7 @@ Das Storyboard illustriert explizit an einem Beispiel die multimodale Steuerung 
 Mehr Informationen im [Projekt-Blog](https://bildungsportal.sachsen.de/opal/auth/RepositoryEntry/33154007041/BusinessGroup/51148128297/menu/MENU_SHOW_BLOG).
 
 ## Quellen
-Solar System scope. (o. D.). Solar System Scope. https://www.solarsystemscope.com/textures/
+Solar System scope. (o. D.). Solar System Scope. https://www.solarsystemscope.com/textures/ <br>
 Homuler. (o. D.). GitHub - homuler/MediaPipeUnityPlugin: Unity plugin to run MediaPipe. GitHub. https://github.com/homuler/MediaPipeUnityPlugin
 <br><br>
 
