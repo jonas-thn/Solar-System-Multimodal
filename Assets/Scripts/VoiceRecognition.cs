@@ -6,12 +6,15 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Windows.Speech; 
 
+//Script zur Erkennung und Steuerung von Himmelskörpern mit Stimme
 public class VoiceRecognition : MonoBehaviour
 {
+    //Abhängigkeiten
     [Header("Main")]
     [SerializeField] private GameController gameController;
     [SerializeField] private CinemachineCamera mainCam;
 
+    //Kamera Ziele
     [Header("Targets")]
     [SerializeField] private Transform sonneTarget;
     [SerializeField] private Transform merkurTarget;
@@ -23,6 +26,7 @@ public class VoiceRecognition : MonoBehaviour
     [SerializeField] private Transform uranusTarget;
     [SerializeField] private Transform neptunTarget;
 
+    //UI Infos Anzeige
     [Header("UI")]
     [SerializeField] private GameObject sonneUI;
     [SerializeField] private GameObject mercuryUI;
@@ -34,14 +38,16 @@ public class VoiceRecognition : MonoBehaviour
     [SerializeField] private GameObject uranusUI;
     [SerializeField] private GameObject naptunUI;
 
+    //Windows Voice Erkennung
     public static VoiceRecognition Instance;
-
     private KeywordRecognizer keywordRecognizer;
 
+    //Eingabe zu Funktions-Delegate Map
     private Dictionary<string, Action> keywords = new Dictionary<string, Action>();
 
     private List<GameObject> uiObjects = new List<GameObject>();
 
+    //Singleton
     void Awake()
     {
         if (Instance == null)
@@ -50,6 +56,7 @@ public class VoiceRecognition : MonoBehaviour
             Destroy(gameObject);
     }
 
+    //List Setup
     void Start()
     {
         uiObjects.Add(sonneUI);
@@ -81,21 +88,26 @@ public class VoiceRecognition : MonoBehaviour
         keywords.Add("Neptun", OnNeptun);
         keywords.Add("Zeig mir den Neptun", OnNeptun);
 
+        //Keyword Recognizer mit Werten füttern
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
 
+        //callback starten
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
 
         keywordRecognizer.Start();
     }
 
+    //callack
     private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
         if (keywords.ContainsKey(args.text))
         {
+            //delegat auslösen
             keywords[args.text].Invoke();
         }
     }
 
+    //Funktionen der Himmelskörper richten Kamera aus und aktivieren UI
     private void OnSonne()
     {
         print("Sonne erkannt");
@@ -222,6 +234,7 @@ public class VoiceRecognition : MonoBehaviour
         naptunUI.SetActive(true);
     }
 
+    //Keywoard Recognizer löschen
     private void OnDestroy()
     {
         if (keywordRecognizer != null && keywordRecognizer.IsRunning)

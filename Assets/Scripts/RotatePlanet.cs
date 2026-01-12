@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Script um Himmelskörper um eigene Achse / Parent rotieren zu lassen
 [ExecuteAlways]
 public class RotatePlanet : MonoBehaviour
 {

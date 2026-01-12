@@ -14,25 +14,32 @@ using Mediapipe.Unity;
 using Mediapipe.Unity.Sample.HandLandmarkDetection;
 using Mediapipe.Unity.Sample;
 
+//Script um Hand-Gestiken mit Mediapipe zu erkennen
 public class HandRunner : VisionTaskApiRunner<HandLandmarker>
 {
+    //UI Annotation
     [SerializeField] private HandLandmarkerResultAnnotationController _handLandmarkerResultAnnotationController;
 
     private Mediapipe.Unity.Experimental.TextureFramePool _textureFramePool;
 
+    //Config laden
     public readonly HandLandmarkDetectionConfig config = new HandLandmarkDetectionConfig();
 
+    //Unity Event Setup
     [System.Serializable]
     public class HandDataEvent : UnityEvent<Vector3, string> { }
 
-    [Header("MEINE GAME EVENTS")]
+    //Hand Daten über Event weitergeben
+    [Header("GAME EVENTS")]
     public HandDataEvent onHandDataReceived;
 
+    //wichtige Daten
     private Vector3 _latestPosition;
     private string _latestGesture = "Unknown";
     private bool _hasNewData = false;
     private object _dataLock = new object();
 
+    //auf neue Daten testen
     private void Update()
     {
         if (_hasNewData)
@@ -46,6 +53,7 @@ public class HandRunner : VisionTaskApiRunner<HandLandmarker>
                 gestureToSend = _latestGesture;
                 _hasNewData = false;
             }
+            //Callback auslösen
             onHandDataReceived?.Invoke(posToSend, gestureToSend);
         }
     }
@@ -57,6 +65,7 @@ public class HandRunner : VisionTaskApiRunner<HandLandmarker>
         _textureFramePool = null;
     }
 
+    //Run Preset (von Mediapipe Assets)
     protected override IEnumerator Run()
     {
         Debug.Log($"Delegate = {config.Delegate}");
@@ -175,6 +184,7 @@ public class HandRunner : VisionTaskApiRunner<HandLandmarker>
         }
     }
 
+    //Fingerpositionen testen mit Hilfe der Abstände
     private bool IsFingerOpen(Mediapipe.Tasks.Components.Containers.NormalizedLandmark wrist,
                               Mediapipe.Tasks.Components.Containers.NormalizedLandmark tip,
                               Mediapipe.Tasks.Components.Containers.NormalizedLandmark pip)
@@ -184,10 +194,10 @@ public class HandRunner : VisionTaskApiRunner<HandLandmarker>
         return distTip > distPip;
     }
 
+    //Callback setzt wichtige Daten
     private void OnHandLandmarkDetectionOutput(HandLandmarkerResult result, Mediapipe.Image image, long timestamp)
     {
         _handLandmarkerResultAnnotationController.DrawLater(result);
-
 
         if (result.handLandmarks != null && result.handLandmarks.Count > 0)
         {
@@ -195,11 +205,13 @@ public class HandRunner : VisionTaskApiRunner<HandLandmarker>
 
             if (hand.landmarks != null && hand.landmarks.Count >= 21)
             {
+                //Zeigefinger Position ist entscheidend
                 var trackNode = hand.landmarks[7];
                 Vector3 currentPos = new Vector3(trackNode.x, 1f - trackNode.y, 0);
 
                 var wrist = hand.landmarks[0];
 
+                //Geste testen
                 bool indexOpen = IsFingerOpen(wrist, hand.landmarks[8], hand.landmarks[6]);
                 bool middleOpen = IsFingerOpen(wrist, hand.landmarks[12], hand.landmarks[10]);
                 bool ringOpen = IsFingerOpen(wrist, hand.landmarks[16], hand.landmarks[14]);
@@ -207,6 +219,7 @@ public class HandRunner : VisionTaskApiRunner<HandLandmarker>
 
                 string detectedGesture = "Unknown";
 
+                //Geste setzen
                 if (indexOpen && !middleOpen && !ringOpen && !pinkyOpen)
                 {
                     detectedGesture = "Point";

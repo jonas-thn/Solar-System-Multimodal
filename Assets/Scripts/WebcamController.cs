@@ -1,14 +1,17 @@
 using UnityEngine;
-using UnityEngine.UI; // Wichtig für RawImage
+using UnityEngine.UI; 
 
+//Test Script um Webcam zu prÃ¼fen
 public class WebcamController : MonoBehaviour
 {
+    //UI Webcam Display
     public RawImage displayImage;
 
     private WebCamTexture webcamTexture;
 
     void Start()
     {
+        //Webcam finden
         WebCamDevice[] devices = WebCamTexture.devices;
 
         if (devices.Length == 0)
@@ -19,10 +22,12 @@ public class WebcamController : MonoBehaviour
 
         Debug.Log("Benutze Kamera: " + devices[0].name);
 
+        //Webcam Objekt
         webcamTexture = new WebCamTexture(devices[0].name, 1280, 720, 30);
 
         displayImage.texture = webcamTexture;
 
+        //Webcam anzeigen
         webcamTexture.Play();
     }
 
