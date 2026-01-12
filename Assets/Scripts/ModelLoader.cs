@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.IO;
 
+//wichige .byte files local laden
 public class ModelLoader : MonoBehaviour
 {
     void Awake()
     {
-        string sourcePath = Application.streamingAssetsPath;
-        string destinationPath = Application.persistentDataPath;
+        string sourcePath = Application.streamingAssetsPath; //persistent nach build
+        string destinationPath = Application.persistentDataPath; //immer zu local low...
 
         if (!Directory.Exists(sourcePath)) return;
 
@@ -22,7 +23,7 @@ public class ModelLoader : MonoBehaviour
 
             try
             {
-                File.Copy(filepath, destFile, true);
+                File.Copy(filepath, destFile, true); //alle datein kopieren
             }
             catch (System.Exception e)
             {
@@ -30,6 +31,6 @@ public class ModelLoader : MonoBehaviour
             }
         }
 
-        Destroy(gameObject);
+        Destroy(gameObject); //selbstzerstören
     }
 }

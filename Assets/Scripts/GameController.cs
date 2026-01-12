@@ -2,9 +2,10 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+//Script um Kamera Bewegung zu kontrollieren
 public class GameController : MonoBehaviour
 {
-
+    //virtuelle Camera
     [SerializeField] private CinemachineCamera mainCamera;
 
     [SerializeField] private float cameraZoomSpeed = 5.0f;
@@ -12,6 +13,7 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private Vector2 zoomBounds; //11, 150
 
+    //follow component
     CinemachineOrbitalFollow followCam;
 
     private void Awake()
@@ -19,14 +21,15 @@ public class GameController : MonoBehaviour
         followCam = mainCamera.GetComponent<CinemachineOrbitalFollow>();
     }
 
+    //wird bei änderung aufgerufen
     public void UpdateHandData(Vector3 screenPos, string gesture)
     {
         float x = (screenPos.x - 0.5f) * 15f;
         float y = (screenPos.y - 0.5f) * 10f;
-
            
         followCam.HorizontalAxis.Value += (x * cameraRotationSpeed * Time.deltaTime);
 
+        //camera zoomen
         switch (gesture)
         {
             case "Fist":
@@ -47,6 +50,7 @@ public class GameController : MonoBehaviour
         }
     }
 
+    //bounds auf himmelskörper anpassen
     public void ChangeCameraProperties(float lowerBound)
     {
         zoomBounds = new Vector2(lowerBound, zoomBounds.y);

@@ -17,6 +17,7 @@ public class HandDataProvider : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    //callback in handTrackingSolution aufgerufen
     public void OnHandDataReceived(List<NormalizedLandmarkList> multiHandLandmarks)
     {
         if (multiHandLandmarks == null || multiHandLandmarks.Count == 0)
@@ -25,6 +26,7 @@ public class HandDataProvider : MonoBehaviour
             return;
         }
 
+        //erste erkannte hand verwenden
         NormalizedLandmarkList hand = multiHandLandmarks[0];
 
         if (hand.Landmark == null || hand.Landmark.Count < 21)
@@ -35,6 +37,7 @@ public class HandDataProvider : MonoBehaviour
 
         isHandDetected = true;
 
+        //koordinaten umrechnung
         var rawWrist = hand.Landmark[0];
         wristPosition = new Vector3(rawWrist.X, 1f - rawWrist.Y, 0);
         isFist = CheckIfFist(hand.Landmark);
@@ -46,6 +49,7 @@ public class HandDataProvider : MonoBehaviour
         Vector2 tip = new Vector2(landmarks[12].X, landmarks[12].Y);
         Vector2 knuckle = new Vector2(landmarks[9].X, landmarks[9].Y);
 
+        //abstand handgelenk fingerspitze
         return Vector2.Distance(wrist, tip) < (Vector2.Distance(wrist, knuckle) * 1.5f);
     }
 }

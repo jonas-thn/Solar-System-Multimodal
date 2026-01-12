@@ -1,22 +1,25 @@
 using UnityEngine;
 
+//Script um Ringe zu zeichnen
 [RequireComponent(typeof(LineRenderer))]
 public class CircleDrawer : MonoBehaviour
 {
     [Header("Einstellungen")]
     [Tooltip("Anzahl der Punkte. 50 ist meist rund genug.")]
-    public int segments = 50;
+    public int segments = 50; //auflösung
 
     [Tooltip("Der Radius des Kreises")]
-    public float radius = 2.0f;
+    public float radius = 2.0f; 
 
     [Tooltip("Dicke der Linie")]
     public float lineWidth = 0.1f;
 
+    //Unity Line Renderer mit Koordinaten füttern
     private LineRenderer line;
 
     void Awake()
     {
+        //Line Renderer Setup
         line = GetComponent<LineRenderer>();
         line.useWorldSpace = false;
         line.loop = true;
@@ -29,6 +32,7 @@ public class CircleDrawer : MonoBehaviour
         DrawCircle();
     }
 
+    //Positionen für Line Renderer Punkte kaluklieren
     public void DrawCircle()
     {
         if (line == null) return;
