@@ -25,7 +25,7 @@ Die Funktionsfähigkeit beider Eingabegeräte kann direkt in der Software überp
 **Sprachsteuerung** <br>
 Die Kamerasteuerung erfolgt zudem mit Sprachbefehlen
 - Sagen Sie einfach den Namen eines Planeten (z.B. "Mars")
-- oder Sagen Sie einen ganzen Befehl "Zeige mir den \<Name des Planeten>"
+- Oder sagen Sie einen ganzen Befehl "Zeige mir den \<Name des Planeten>"
 
 
 ## AMITUDE-Modellierung
