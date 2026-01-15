@@ -1,12 +1,32 @@
 # Solar-System
-[Demo-Video](Src/demo.mp4)
-| Zoom In | Zoom Out |
-| --- | --- |
-| <img src="Src/zoom1.png" width=500> | <img src="Src/zoom2.png" width=500> |
 
 
 ## Beschreibung
 In diesem Projekt wird ein interaktives 3D-Modell unseres Sonnensystems in C# mithilfe des Frameworks Unity entwickelt. Die Besonderheit liegt in der multimodalen Mensch-Maschine-Interaktion: Nutzer können sich mithilfe von Gestensteuerung und Spracherkennung frei durch das System bewegen, Himmelskörper anwählen und Informationen abrufen. Durch die Kombination beider Eingabemodalitäten entsteht ein intuitives und natürliches Steuerungserlebnis, das die Erkundung des virtuellen Raums deutlich verbessert.
+
+## Anleitung
+### Download
+1. Laden Sie die .zip-Datei von der [Release-Seite](https://github.com/jonas-thn/Solar-System-Multimodal/releases) herunter <br>
+2. Entpacken Sie die .zip-Datei in einen beliebigen Ordner <br>
+3. Starten Sie die Andwendung "Solar System MMMI.exe" und erlauben Sie ggf. den Zugriff
+
+### Bedienung
+Stellen Sie sicher, dass eine Kamera und ein Mikrofon angeschlossen sind.
+Die Funktionsfähigkeit beider Eingabegeräte kann direkt in der Software überprüft werden (über das Handmodell und den Audio-Slider).<br>
+
+**Gestensteuerung**
+| Zoom In | Zoom Out |
+| --- | --- |
+| <img src="Src/zoomout.png" width=500> | <img src="Src/zoomin.png" width=500> |
+
+- Das Hinein- und Herauszoomen erfolgt über entsprechende Handgesten(siehe Abbildungen)
+- Das Rotieren der Kamera erfolgt durch Handbewgungen - je nachdem, zu welcher Seite die Hand stärker geneigt ist
+
+**Sprachsteuerung** <br>
+Die Kamerasteuerung erfolgt zudem mit Sprachbefehlen
+- Sagen Sie einfach den Namen eines Planeten (z.B. "Mars")
+- oder Sagen Sie einen ganzen Befehl "Zeige mir den \<Name des Planeten>"
+
 
 ## AMITUDE-Modellierung
 | Buchstabe | Bedeutung | Beschreibung |
