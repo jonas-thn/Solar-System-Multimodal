@@ -17,7 +17,7 @@ Die Funktionsfähigkeit beider Eingabegeräte kann direkt in der Software überp
 **Gestensteuerung**
 | Zoom In | Zoom Out |
 | --- | --- |
-| <img src="Src/zoomout.png" width=500> | <img src="Src/zoomin.png" width=500> |
+| <img src="src/zoomout.png"> | <img src="src/zoomin.png"> |
 
 - Das Hinein- und Herauszoomen erfolgt über entsprechende Handgesten(siehe Abbildungen)
 - Das Rotieren der Kamera erfolgt durch Handbewgungen - je nachdem, zu welcher Seite die Hand stärker geneigt ist
@@ -54,7 +54,7 @@ Das Ziel der Teilnehmenden ist die aktive Erkundung des Sonnensystems, das Auffi
 Die Umgebung ist ein virtuelles 3D-Sonnensystem, das Sonne, Planeten, Asteroiden und weitere astronomische Objekte enthält. Die Bedingungen sind auf Desktop-Anwendungen ausgelegt, mit realistischen Skalierungen, Bewegungen, Lichtverhältnissen und noch zusätzlichen Easter eggs. Die Umgebung ist aktiv in die Interaktion eingebunden: Himmelskörper können ausgewählt werden, Umlaufbahnen und Rotationen beeinflussen die Bewegungsfreiheit der Teilnehmenden, und die virtuelle Szenerie reagiert auf die multimodale Steuerung.<br><br>
 
 ## Storyboarding
-![Storyboard](Src/storyboard.png)
+![Storyboard](src/storyboard.png)
 Das Storyboard illustriert explizit an einem Beispiel die multimodale Steuerung der Anwendung :
 
 - **Voice Control:** Das System reagiert auf deutsche Sprachbefehle, um spezifische Himmelskörper anzuzeigen - "Zeig mir Pluto" (auch wenn Pluto kein Planet ist ).
