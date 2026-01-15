@@ -105,14 +105,6 @@ public class VoiceRecognition : MonoBehaviour
         keywordRecognizer.Start();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            OnPluto();
-        }
-    }
-
     private void OnQuit()
     {
         print("quit");
