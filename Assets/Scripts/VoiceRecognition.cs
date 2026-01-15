@@ -25,6 +25,7 @@ public class VoiceRecognition : MonoBehaviour
     [SerializeField] private Transform saturnTarget;
     [SerializeField] private Transform uranusTarget;
     [SerializeField] private Transform neptunTarget;
+    [SerializeField] private Transform plutoTarget;
 
     //UI Infos Anzeige
     [Header("UI")]
@@ -37,6 +38,7 @@ public class VoiceRecognition : MonoBehaviour
     [SerializeField] private GameObject saturnUI;
     [SerializeField] private GameObject uranusUI;
     [SerializeField] private GameObject naptunUI;
+    [SerializeField] private GameObject plutoUI;
 
     //Windows Voice Erkennung
     public static VoiceRecognition Instance;
@@ -87,6 +89,12 @@ public class VoiceRecognition : MonoBehaviour
         keywords.Add("Zeig mir den Uranus", OnUranus);
         keywords.Add("Neptun", OnNeptun);
         keywords.Add("Zeig mir den Neptun", OnNeptun);
+        keywords.Add("Pluto", OnPluto);
+        keywords.Add("Zeig mir den Pluto", OnPluto);
+
+        keywords.Add("Schließen", OnQuit);
+        keywords.Add("Beenden", OnQuit);
+
 
         //Keyword Recognizer mit Werten füttern
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
@@ -95,6 +103,20 @@ public class VoiceRecognition : MonoBehaviour
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
 
         keywordRecognizer.Start();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            OnPluto();
+        }
+    }
+
+    private void OnQuit()
+    {
+        print("quit");
+        Application.Quit();
     }
 
     //callack
@@ -232,6 +254,20 @@ public class VoiceRecognition : MonoBehaviour
         }
 
         naptunUI.SetActive(true);
+    }
+
+    private void OnPluto()
+    {
+        print("Pluto erkannt");
+        mainCam.Target.TrackingTarget = plutoTarget;
+        gameController.ChangeCameraProperties(5.0f);
+
+        foreach (var uiObject in uiObjects)
+        {
+            uiObject.SetActive(false);
+        }
+
+        plutoUI.SetActive(true);
     }
 
     //Keywoard Recognizer löschen

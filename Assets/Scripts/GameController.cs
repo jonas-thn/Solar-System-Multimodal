@@ -60,4 +60,10 @@ public class GameController : MonoBehaviour
             followCam.Radius = lowerBound;
         }
     }
+
+    public void QuitApplication()
+    {
+        Application.Quit();
+        print("quit");
+    }
 }
